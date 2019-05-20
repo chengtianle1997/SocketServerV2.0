@@ -58,7 +58,7 @@ public:
 
 	// 更新数据
 
-	void ServerRun(int portnum);
+	void ServerRun(int portnum ,const char* Filepath);
 
 };
 

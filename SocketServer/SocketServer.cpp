@@ -117,7 +117,7 @@ int ServerNet::ServerInit(const char* address, int port)
 
 
 
-void ServerNet::ServerRun(int portnum)
+void ServerNet::ServerRun(int portnum ,const char* Filepath)
 
 {
 
@@ -129,7 +129,7 @@ void ServerNet::ServerRun(int portnum)
 
 	char *Filename = (char*)malloc(100);
 
-	sprintf(Filename, "C:\\CalResult\\Result%d.csv", portnum);
+	sprintf(Filename,"%s\\Result%d.csv", Filepath, portnum);
 
 	outFile.open(Filename, ios::out);
 

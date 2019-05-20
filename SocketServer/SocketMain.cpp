@@ -9,6 +9,8 @@
 
 //using namespace std;
 
+const char* FilePath = "C:\\CalResult";
+
 ServerNet serverNet1;
 ServerNet serverNet2;
 ServerNet serverNet3;
@@ -25,52 +27,62 @@ const char* ServerAddr = "127.0.0.1";
 
 void ServerRun1()
 {
-	serverNet1.ServerRun(1);
+	serverNet1.ServerRun(1, FilePath);
 }
 
 void ServerRun2()
 {
-	serverNet2.ServerRun(2);
+	serverNet2.ServerRun(2, FilePath);
 }
 
 void ServerRun3()
 {
-	serverNet3.ServerRun(3);
+	serverNet3.ServerRun(3, FilePath);
 }
 
 void ServerRun4()
 {
-	serverNet4.ServerRun(4);
+	serverNet4.ServerRun(4, FilePath);
 }
 
 void ServerRun5()
 {
-	serverNet5.ServerRun(5);
+	serverNet5.ServerRun(5, FilePath);
 }
 
 void ServerRun6()
 {
-	serverNet6.ServerRun(6);
+	serverNet6.ServerRun(6, FilePath);
 }
 
 void ServerRun7()
 {
-	serverNet7.ServerRun(7);
+	serverNet7.ServerRun(7, FilePath);
 }
 
 void ServerRun8()
 {
-	serverNet8.ServerRun(8);
+	serverNet8.ServerRun(8, FilePath);
 }
 
 void ServerRun9()
 {
-	serverNet9.ServerRun(9);
+	serverNet9.ServerRun(9, FilePath);
 }
 
 void ServerRun10()
 {
-	serverNet10.ServerRun(10);
+	serverNet10.ServerRun(10, FilePath);
+}
+
+int CreateFolder(const char* Filepath)
+{
+	int ret = CreateDirectory(Filepath, NULL);
+	if (!ret)
+	{
+		printf("Create directory failed!\n");
+	}
+	return ret;
 }
 
 int main(int argc, char* argv[])
@@ -82,7 +94,7 @@ int main(int argc, char* argv[])
 	//ClientParam
 	args.add<UINT>("serverport", 's', "ServerPort", false, 8001, cmdline::range(0, 65535));
 	args.add<std::string>("ssar", '\0', "ServerAddress", false, "127.0.0.1");
-
+	args.add<std::string>("filepath", 'p', "CSVFileSavedAddress", false, "C:\\CalResult");
 	args.parse_check(argc, argv);
 
 	//input serverport from cmdline
@@ -96,6 +108,13 @@ int main(int argc, char* argv[])
 	{
 		ServerAddr = args.get<std::string>("ssar").data();
 	}
+	//input filepath
+	if (args.exist("filepath"))
+	{
+		FilePath = args.get<std::string>("filepath").data();
+	}
+
+	CreateFolder(FilePath);
 
 	printf("ServerPort:%d\n", ServerPort);
 
